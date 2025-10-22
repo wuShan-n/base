@@ -1,6 +1,7 @@
 package com.example.base.auth.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.crypto.SecureUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.example.base.auth.dto.LoginRequest;
 import com.example.base.auth.dto.LogoutRequest;
@@ -11,7 +12,6 @@ import com.example.base.auth.enums.AccountStatus;
 import com.example.base.auth.mapper.*;
 import com.example.base.auth.service.AuthService;
 import com.example.base.common.exception.BizException;
-import com.example.base.common.util.DigestUtil;
 import com.example.base.security.config.JwtProperties;
 import com.example.base.security.core.SecurityUtils;
 import com.example.base.security.token.JwtTokenService;
@@ -105,7 +105,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     @Transactional
     public TokenResponse refresh(RefreshRequest request) {
-        String tokenHash = DigestUtil.sha256Hex(request.getRefreshToken());
+        String tokenHash = SecureUtil.sha256(request.getRefreshToken());
         AuthRefreshTokenEntity entity = refreshTokenMapper.selectOne(new LambdaQueryWrapper<AuthRefreshTokenEntity>()
                 .eq(AuthRefreshTokenEntity::getTokenHash, tokenHash));
         if (entity == null) {
@@ -250,7 +250,7 @@ public class AuthServiceImpl implements AuthService {
         AuthRefreshTokenEntity entity = AuthRefreshTokenEntity.builder()
                 .userId(userId)
                 .clientId(Optional.ofNullable(tokenPair.getClientId()).orElse("web"))
-                .tokenHash(DigestUtil.sha256Hex(tokenPair.getRefreshToken()))
+                .tokenHash(SecureUtil.sha256(tokenPair.getRefreshToken()))
                 .issuedAt(issuedAt)
                 .expiresAt(expiresAt)
                 .build();
@@ -320,7 +320,7 @@ public class AuthServiceImpl implements AuthService {
 
     private void denyAccessToken(String jti, Instant expiresAt) {
         AuthAccessDenylistEntity entity = AuthAccessDenylistEntity.builder()
-                .jtiHash(DigestUtil.sha256Hex(jti))
+                .jtiHash(SecureUtil.sha256(jti))
                 .expiresAt(LocalDateTime.ofInstant(expiresAt, ZoneId.systemDefault()))
                 .reason("LOGOUT")
                 .build();

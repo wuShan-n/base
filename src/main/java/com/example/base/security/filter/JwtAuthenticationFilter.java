@@ -1,5 +1,6 @@
 package com.example.base.security.filter;
 
+import cn.hutool.crypto.SecureUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.example.base.auth.entity.AuthAccessDenylistEntity;
 import com.example.base.auth.entity.AuthAccountEntity;
@@ -171,7 +172,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     }
 
     private boolean isDenylisted(String jti) {
-        String hash = com.example.base.common.util.DigestUtil.sha256Hex(jti);
+        String hash = SecureUtil.sha256(jti);
         AuthAccessDenylistEntity entity = accessDenylistMapper.selectOne(new LambdaQueryWrapper<AuthAccessDenylistEntity>()
                 .eq(AuthAccessDenylistEntity::getJtiHash, hash));
         return entity != null && entity.getExpiresAt() != null && entity.getExpiresAt().isAfter(LocalDateTime.now());

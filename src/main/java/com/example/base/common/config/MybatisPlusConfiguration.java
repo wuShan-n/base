@@ -31,7 +31,6 @@ public class MybatisPlusConfiguration {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        // 返回 BCrypt 算法的实现
         return new BCryptPasswordEncoder();
     }
 
