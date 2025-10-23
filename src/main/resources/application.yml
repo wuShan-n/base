@@ -1,6 +1,8 @@
 spring:
   application:
     name: base-service
+  profiles:
+    active: dev
   datasource:
     url: jdbc:mysql://localhost:3306/secaml?useSSL=false&characterEncoding=utf8&serverTimezone=Asia/Shanghai
     username: root
@@ -40,7 +42,6 @@ mybatis-plus:
   configuration:
     map-underscore-to-camel-case: true
     default-enum-type-handler: org.apache.ibatis.type.EnumTypeHandler
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 security:
   jwt:
@@ -50,3 +51,18 @@ security:
     refresh-token-ttl: 30d
     max-refresh-token-per-user: 50
 
+logging:
+  level:
+    com.example.base: debug
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  tracing:
+    sampling:
+      probability: 1.0
+  otlp:
+    tracing:
+      endpoint: http://localhost:4318/v1/traces

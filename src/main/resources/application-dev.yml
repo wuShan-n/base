@@ -2,7 +2,8 @@ spring:
   application:
     name: base-service
   datasource:
-    url: jdbc:mysql://localhost:3306/secaml?useSSL=false&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    # 注意：主机名从 localhost 改为 mysql
+    url: jdbc:mysql://mysql:3306/secaml?useSSL=false&characterEncoding=utf8&serverTimezone=Asia/Shanghai
     username: root
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -19,13 +20,14 @@ spring:
     allow-bean-definition-overriding: true
   data:
     redis:
-      host: localhost
+      # 注意：主机名从 localhost 改为 redis
+      host: redis
       port: 6379
       database: 0
       timeout: 3s
 
 server:
-  port: 8080
+  port: 8080 # 容器内端口
 
 mybatis-plus:
   mapper-locations: classpath:/mapper/*.xml
@@ -37,7 +39,6 @@ mybatis-plus:
       logic-delete-value: 1
       logic-not-delete-value: 0
       table-prefix:
-      logic-delete: true
   configuration:
     map-underscore-to-camel-case: true
     default-enum-type-handler: org.apache.ibatis.type.EnumTypeHandler
@@ -52,7 +53,7 @@ security:
 
 logging:
   level:
-    com.example.base: off
+    com.example.base: debug
 
 management:
   endpoints:
@@ -64,4 +65,5 @@ management:
       probability: 1.0
   otlp:
     tracing:
-      endpoint: http://localhost:4318/v1/traces
+      # 注意：主机名从 localhost 改为 otel-collector
+      endpoint: http://otel-collector:4318/v1/traces
