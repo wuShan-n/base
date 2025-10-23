@@ -1,0 +1,3080 @@
+openapi: "3.0.1"
+info:
+  title: "API Documentation"
+  version: "1.0"
+paths:
+  /auth/register:
+    post:
+      summary: "register"
+      description: "register"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - "accounts"
+              - "nickname"
+              type: "object"
+              properties:
+                nickname:
+                  type: "string"
+                  description: ""
+                locale:
+                  type: "string"
+                  description: ""
+                gender:
+                  type: "integer"
+                  description: ""
+                avatarUrl:
+                  type: "string"
+                  description: ""
+                timezone:
+                  type: "string"
+                  description: ""
+                accounts:
+                  type: "array"
+                  description: ""
+                  items:
+                    required:
+                    - "identifier"
+                    - "identityType"
+                    type: "object"
+                    properties:
+                      identityType:
+                        type: "string"
+                        description: ""
+                      identifier:
+                        type: "string"
+                        description: ""
+                      credential:
+                        maxLength: 128
+                        minLength: 6
+                        type: "string"
+                        description: ""
+                      primary:
+                        type: "boolean"
+                        description: ""
+                        default: "true"
+                    description: "com.example.base.auth.dto.AccountCreateRequest"
+                remark:
+                  type: "string"
+                  description: ""
+              description: ""
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  code:
+                    type: "string"
+                    description: ""
+                  message:
+                    type: "string"
+                    description: ""
+                  data:
+                    type: "object"
+                    properties:
+                      id:
+                        type: "integer"
+                        description: ""
+                        format: "int64"
+                      tenantId:
+                        type: "integer"
+                        description: ""
+                        format: "int64"
+                      nickname:
+                        type: "string"
+                        description: ""
+                      avatarUrl:
+                        type: "string"
+                        description: ""
+                      gender:
+                        type: "string"
+                        description: "{UNKNOWN=UNKNOWN, MALE=MALE, FEMALE=FEMALE,\
+                          \ OTHER=OTHER}"
+                        enum:
+                        - "UNKNOWN"
+                        - "MALE"
+                        - "FEMALE"
+                        - "OTHER"
+                      timezone:
+                        type: "string"
+                        description: ""
+                      locale:
+                        type: "string"
+                        description: ""
+                      status:
+                        type: "string"
+                        description: "{DISABLED=DISABLED, ACTIVE=ACTIVE, LOCKED=LOCKED}"
+                        enum:
+                        - "DISABLED"
+                        - "ACTIVE"
+                        - "LOCKED"
+                      tokenVersion:
+                        type: "integer"
+                        description: ""
+                      lastLoginAt:
+                        type: "string"
+                        description: ""
+                      remark:
+                        type: "string"
+                        description: ""
+                      createdAt:
+                        type: "string"
+                        description: ""
+                      updatedAt:
+                        type: "string"
+                        description: ""
+                      accounts:
+                        type: "array"
+                        description: ""
+                        items:
+                          type: "object"
+                          properties:
+                            id:
+                              type: "integer"
+                              description: ""
+                              format: "int64"
+                            tenantId:
+                              type: "integer"
+                              description: ""
+                              format: "int64"
+                            userId:
+                              type: "integer"
+                              description: ""
+                              format: "int64"
+                            identityType:
+                              type: "string"
+                              description: ""
+                            identifier:
+                              type: "string"
+                              description: ""
+                            passwordVersion:
+                              type: "integer"
+                              description: ""
+                            primary:
+                              type: "boolean"
+                              description: ""
+                            verified:
+                              type: "boolean"
+                              description: ""
+                            verifiedAt:
+                              type: "string"
+                              description: ""
+                            failedAttempts:
+                              type: "integer"
+                              description: ""
+                            lockUntil:
+                              type: "string"
+                              description: ""
+                            lastLoginAt:
+                              type: "string"
+                              description: ""
+                            meta:
+                              type: "object"
+                              properties:
+                                key:
+                                  type: "object"
+                                  properties: {}
+                              description: ""
+                            status:
+                              type: "string"
+                              description: "{DISABLED=DISABLED, ACTIVE=ACTIVE, LOCKED=LOCKED}"
+                              enum:
+                              - "DISABLED"
+                              - "ACTIVE"
+                              - "LOCKED"
+                            createdAt:
+                              type: "string"
+                              description: ""
+                            updatedAt:
+                              type: "string"
+                              description: ""
+                          description: "com.example.base.auth.dto.AccountDto"
+                      roles:
+                        type: "array"
+                        description: ""
+                        items:
+                          type: "object"
+                          properties:
+                            id:
+                              type: "integer"
+                              description: ""
+                              format: "int64"
+                            tenantId:
+                              type: "integer"
+                              description: ""
+                              format: "int64"
+                            code:
+                              type: "string"
+                              description: ""
+                            name:
+                              type: "string"
+                              description: ""
+                            level:
+                              type: "integer"
+                              description: ""
+                            builtIn:
+                              type: "boolean"
+                              description: ""
+                            status:
+                              type: "integer"
+                              description: ""
+                            remark:
+                              type: "string"
+                              description: ""
+                            createdAt:
+                              type: "string"
+                              description: ""
+                            updatedAt:
+                              type: "string"
+                              description: ""
+                            permissions:
+                              type: "array"
+                              description: ""
+                              items:
+                                type: "object"
+                                properties:
+                                  id:
+                                    type: "integer"
+                                    description: ""
+                                    format: "int64"
+                                  tenantId:
+                                    type: "integer"
+                                    description: ""
+                                    format: "int64"
+                                  type:
+                                    type: "string"
+                                    description: "{API=API, MENU=MENU, DATA=DATA}"
+                                    enum:
+                                    - "API"
+                                    - "MENU"
+                                    - "DATA"
+                                  code:
+                                    type: "string"
+                                    description: ""
+                                  name:
+                                    type: "string"
+                                    description: ""
+                                  resource:
+                                    type: "string"
+                                    description: ""
+                                  httpMethod:
+                                    type: "string"
+                                    description: ""
+                                  action:
+                                    type: "string"
+                                    description: ""
+                                  parentId:
+                                    type: "integer"
+                                    description: ""
+                                    format: "int64"
+                                  orderNo:
+                                    type: "integer"
+                                    description: ""
+                                  status:
+                                    type: "integer"
+                                    description: ""
+                                  createdAt:
+                                    type: "string"
+                                    description: ""
+                                  updatedAt:
+                                    type: "string"
+                                    description: ""
+                                description: "com.example.base.auth.dto.PermissionDto"
+                          description: "com.example.base.auth.dto.RoleDto"
+                    description: ""
+  /auth/login:
+    post:
+      summary: "login"
+      description: "login"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - "credential"
+              - "identifier"
+              - "identityType"
+              type: "object"
+              properties:
+                identityType:
+                  type: "string"
+                  description: ""
+                identifier:
+                  type: "string"
+                  description: ""
+                credential:
+                  type: "string"
+                  description: ""
+                clientId:
+                  type: "string"
+                  description: ""
+                  default: "web"
+              description: ""
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  code:
+                    type: "string"
+                    description: ""
+                  message:
+                    type: "string"
+                    description: ""
+                  data:
+                    type: "object"
+                    properties:
+                      tokenType:
+                        type: "string"
+                        description: ""
+                      accessToken:
+                        type: "string"
+                        description: ""
+                      expiresIn:
+                        type: "integer"
+                        description: ""
+                        format: "int64"
+                      refreshToken:
+                        type: "string"
+                        description: ""
+                      jti:
+                        type: "string"
+                        description: ""
+                      user:
+                        type: "object"
+                        properties:
+                          id:
+                            type: "integer"
+                            description: ""
+                            format: "int64"
+                          tenantId:
+                            type: "integer"
+                            description: ""
+                            format: "int64"
+                          nickname:
+                            type: "string"
+                            description: ""
+                          avatarUrl:
+                            type: "string"
+                            description: ""
+                          gender:
+                            type: "string"
+                            description: "{UNKNOWN=UNKNOWN, MALE=MALE, FEMALE=FEMALE,\
+                              \ OTHER=OTHER}"
+                            enum:
+                            - "UNKNOWN"
+                            - "MALE"
+                            - "FEMALE"
+                            - "OTHER"
+                          timezone:
+                            type: "string"
+                            description: ""
+                          locale:
+                            type: "string"
+                            description: ""
+                          status:
+                            type: "string"
+                            description: "{DISABLED=DISABLED, ACTIVE=ACTIVE, LOCKED=LOCKED}"
+                            enum:
+                            - "DISABLED"
+                            - "ACTIVE"
+                            - "LOCKED"
+                          tokenVersion:
+                            type: "integer"
+                            description: ""
+                          lastLoginAt:
+                            type: "string"
+                            description: ""
+                          remark:
+                            type: "string"
+                            description: ""
+                          createdAt:
+                            type: "string"
+                            description: ""
+                          updatedAt:
+                            type: "string"
+                            description: ""
+                          accounts:
+                            type: "array"
+                            description: ""
+                            items:
+                              type: "object"
+                              properties:
+                                id:
+                                  type: "integer"
+                                  description: ""
+                                  format: "int64"
+                                tenantId:
+                                  type: "integer"
+                                  description: ""
+                                  format: "int64"
+                                userId:
+                                  type: "integer"
+                                  description: ""
+                                  format: "int64"
+                                identityType:
+                                  type: "string"
+                                  description: ""
+                                identifier:
+                                  type: "string"
+                                  description: ""
+                                passwordVersion:
+                                  type: "integer"
+                                  description: ""
+                                primary:
+                                  type: "boolean"
+                                  description: ""
+                                verified:
+                                  type: "boolean"
+                                  description: ""
+                                verifiedAt:
+                                  type: "string"
+                                  description: ""
+                                failedAttempts:
+                                  type: "integer"
+                                  description: ""
+                                lockUntil:
+                                  type: "string"
+                                  description: ""
+                                lastLoginAt:
+                                  type: "string"
+                                  description: ""
+                                meta:
+                                  type: "object"
+                                  properties:
+                                    key:
+                                      type: "object"
+                                      properties: {}
+                                  description: ""
+                                status:
+                                  type: "string"
+                                  description: "{DISABLED=DISABLED, ACTIVE=ACTIVE,\
+                                    \ LOCKED=LOCKED}"
+                                  enum:
+                                  - "DISABLED"
+                                  - "ACTIVE"
+                                  - "LOCKED"
+                                createdAt:
+                                  type: "string"
+                                  description: ""
+                                updatedAt:
+                                  type: "string"
+                                  description: ""
+                              description: "com.example.base.auth.dto.AccountDto"
+                          roles:
+                            type: "array"
+                            description: ""
+                            items:
+                              type: "object"
+                              properties:
+                                id:
+                                  type: "integer"
+                                  description: ""
+                                  format: "int64"
+                                tenantId:
+                                  type: "integer"
+                                  description: ""
+                                  format: "int64"
+                                code:
+                                  type: "string"
+                                  description: ""
+                                name:
+                                  type: "string"
+                                  description: ""
+                                level:
+                                  type: "integer"
+                                  description: ""
+                                builtIn:
+                                  type: "boolean"
+                                  description: ""
+                                status:
+                                  type: "integer"
+                                  description: ""
+                                remark:
+                                  type: "string"
+                                  description: ""
+                                createdAt:
+                                  type: "string"
+                                  description: ""
+                                updatedAt:
+                                  type: "string"
+                                  description: ""
+                                permissions:
+                                  type: "array"
+                                  description: ""
+                                  items:
+                                    type: "object"
+                                    properties:
+                                      id:
+                                        type: "integer"
+                                        description: ""
+                                        format: "int64"
+                                      tenantId:
+                                        type: "integer"
+                                        description: ""
+                                        format: "int64"
+                                      type:
+                                        type: "string"
+                                        description: "{API=API, MENU=MENU, DATA=DATA}"
+                                        enum:
+                                        - "API"
+                                        - "MENU"
+                                        - "DATA"
+                                      code:
+                                        type: "string"
+                                        description: ""
+                                      name:
+                                        type: "string"
+                                        description: ""
+                                      resource:
+                                        type: "string"
+                                        description: ""
+                                      httpMethod:
+                                        type: "string"
+                                        description: ""
+                                      action:
+                                        type: "string"
+                                        description: ""
+                                      parentId:
+                                        type: "integer"
+                                        description: ""
+                                        format: "int64"
+                                      orderNo:
+                                        type: "integer"
+                                        description: ""
+                                      status:
+                                        type: "integer"
+                                        description: ""
+                                      createdAt:
+                                        type: "string"
+                                        description: ""
+                                      updatedAt:
+                                        type: "string"
+                                        description: ""
+                                    description: "com.example.base.auth.dto.PermissionDto"
+                              description: "com.example.base.auth.dto.RoleDto"
+                        description: ""
+                    description: ""
+  /auth/refresh:
+    post:
+      summary: "refresh"
+      description: "refresh"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - "refreshToken"
+              type: "object"
+              properties:
+                refreshToken:
+                  type: "string"
+                  description: ""
+                clientId:
+                  type: "string"
+                  description: ""
+                  default: "web"
+              description: ""
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  code:
+                    type: "string"
+                    description: ""
+                  message:
+                    type: "string"
+                    description: ""
+                  data:
+                    type: "object"
+                    properties:
+                      tokenType:
+                        type: "string"
+                        description: ""
+                      accessToken:
+                        type: "string"
+                        description: ""
+                      expiresIn:
+                        type: "integer"
+                        description: ""
+                        format: "int64"
+                      refreshToken:
+                        type: "string"
+                        description: ""
+                      jti:
+                        type: "string"
+                        description: ""
+                      user:
+                        type: "object"
+                        properties:
+                          id:
+                            type: "integer"
+                            description: ""
+                            format: "int64"
+                          tenantId:
+                            type: "integer"
+                            description: ""
+                            format: "int64"
+                          nickname:
+                            type: "string"
+                            description: ""
+                          avatarUrl:
+                            type: "string"
+                            description: ""
+                          gender:
+                            type: "string"
+                            description: "{UNKNOWN=UNKNOWN, MALE=MALE, FEMALE=FEMALE,\
+                              \ OTHER=OTHER}"
+                            enum:
+                            - "UNKNOWN"
+                            - "MALE"
+                            - "FEMALE"
+                            - "OTHER"
+                          timezone:
+                            type: "string"
+                            description: ""
+                          locale:
+                            type: "string"
+                            description: ""
+                          status:
+                            type: "string"
+                            description: "{DISABLED=DISABLED, ACTIVE=ACTIVE, LOCKED=LOCKED}"
+                            enum:
+                            - "DISABLED"
+                            - "ACTIVE"
+                            - "LOCKED"
+                          tokenVersion:
+                            type: "integer"
+                            description: ""
+                          lastLoginAt:
+                            type: "string"
+                            description: ""
+                          remark:
+                            type: "string"
+                            description: ""
+                          createdAt:
+                            type: "string"
+                            description: ""
+                          updatedAt:
+                            type: "string"
+                            description: ""
+                          accounts:
+                            type: "array"
+                            description: ""
+                            items:
+                              type: "object"
+                              properties:
+                                id:
+                                  type: "integer"
+                                  description: ""
+                                  format: "int64"
+                                tenantId:
+                                  type: "integer"
+                                  description: ""
+                                  format: "int64"
+                                userId:
+                                  type: "integer"
+                                  description: ""
+                                  format: "int64"
+                                identityType:
+                                  type: "string"
+                                  description: ""
+                                identifier:
+                                  type: "string"
+                                  description: ""
+                                passwordVersion:
+                                  type: "integer"
+                                  description: ""
+                                primary:
+                                  type: "boolean"
+                                  description: ""
+                                verified:
+                                  type: "boolean"
+                                  description: ""
+                                verifiedAt:
+                                  type: "string"
+                                  description: ""
+                                failedAttempts:
+                                  type: "integer"
+                                  description: ""
+                                lockUntil:
+                                  type: "string"
+                                  description: ""
+                                lastLoginAt:
+                                  type: "string"
+                                  description: ""
+                                meta:
+                                  type: "object"
+                                  properties:
+                                    key:
+                                      type: "object"
+                                      properties: {}
+                                  description: ""
+                                status:
+                                  type: "string"
+                                  description: "{DISABLED=DISABLED, ACTIVE=ACTIVE,\
+                                    \ LOCKED=LOCKED}"
+                                  enum:
+                                  - "DISABLED"
+                                  - "ACTIVE"
+                                  - "LOCKED"
+                                createdAt:
+                                  type: "string"
+                                  description: ""
+                                updatedAt:
+                                  type: "string"
+                                  description: ""
+                              description: "com.example.base.auth.dto.AccountDto"
+                          roles:
+                            type: "array"
+                            description: ""
+                            items:
+                              type: "object"
+                              properties:
+                                id:
+                                  type: "integer"
+                                  description: ""
+                                  format: "int64"
+                                tenantId:
+                                  type: "integer"
+                                  description: ""
+                                  format: "int64"
+                                code:
+                                  type: "string"
+                                  description: ""
+                                name:
+                                  type: "string"
+                                  description: ""
+                                level:
+                                  type: "integer"
+                                  description: ""
+                                builtIn:
+                                  type: "boolean"
+                                  description: ""
+                                status:
+                                  type: "integer"
+                                  description: ""
+                                remark:
+                                  type: "string"
+                                  description: ""
+                                createdAt:
+                                  type: "string"
+                                  description: ""
+                                updatedAt:
+                                  type: "string"
+                                  description: ""
+                                permissions:
+                                  type: "array"
+                                  description: ""
+                                  items:
+                                    type: "object"
+                                    properties:
+                                      id:
+                                        type: "integer"
+                                        description: ""
+                                        format: "int64"
+                                      tenantId:
+                                        type: "integer"
+                                        description: ""
+                                        format: "int64"
+                                      type:
+                                        type: "string"
+                                        description: "{API=API, MENU=MENU, DATA=DATA}"
+                                        enum:
+                                        - "API"
+                                        - "MENU"
+                                        - "DATA"
+                                      code:
+                                        type: "string"
+                                        description: ""
+                                      name:
+                                        type: "string"
+                                        description: ""
+                                      resource:
+                                        type: "string"
+                                        description: ""
+                                      httpMethod:
+                                        type: "string"
+                                        description: ""
+                                      action:
+                                        type: "string"
+                                        description: ""
+                                      parentId:
+                                        type: "integer"
+                                        description: ""
+                                        format: "int64"
+                                      orderNo:
+                                        type: "integer"
+                                        description: ""
+                                      status:
+                                        type: "integer"
+                                        description: ""
+                                      createdAt:
+                                        type: "string"
+                                        description: ""
+                                      updatedAt:
+                                        type: "string"
+                                        description: ""
+                                    description: "com.example.base.auth.dto.PermissionDto"
+                              description: "com.example.base.auth.dto.RoleDto"
+                        description: ""
+                    description: ""
+  /auth/logout:
+    post:
+      summary: "logout"
+      description: "logout"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                allSessions:
+                  type: "boolean"
+                  description: ""
+                  default: "false"
+              description: ""
+      responses:
+        "200":
+          description: "No Content"
+  /auth/me:
+    get:
+      summary: "currentUser"
+      description: "currentUser"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  code:
+                    type: "string"
+                    description: ""
+                  message:
+                    type: "string"
+                    description: ""
+                  data:
+                    type: "object"
+                    properties:
+                      user:
+                        type: "object"
+                        properties:
+                          id:
+                            type: "integer"
+                            description: ""
+                            format: "int64"
+                          tenantId:
+                            type: "integer"
+                            description: ""
+                            format: "int64"
+                          nickname:
+                            type: "string"
+                            description: ""
+                          avatarUrl:
+                            type: "string"
+                            description: ""
+                          gender:
+                            type: "string"
+                            description: "{UNKNOWN=UNKNOWN, MALE=MALE, FEMALE=FEMALE,\
+                              \ OTHER=OTHER}"
+                            enum:
+                            - "UNKNOWN"
+                            - "MALE"
+                            - "FEMALE"
+                            - "OTHER"
+                          timezone:
+                            type: "string"
+                            description: ""
+                          locale:
+                            type: "string"
+                            description: ""
+                          status:
+                            type: "string"
+                            description: "{DISABLED=DISABLED, ACTIVE=ACTIVE, LOCKED=LOCKED}"
+                            enum:
+                            - "DISABLED"
+                            - "ACTIVE"
+                            - "LOCKED"
+                          tokenVersion:
+                            type: "integer"
+                            description: ""
+                          lastLoginAt:
+                            type: "string"
+                            description: ""
+                          remark:
+                            type: "string"
+                            description: ""
+                          createdAt:
+                            type: "string"
+                            description: ""
+                          updatedAt:
+                            type: "string"
+                            description: ""
+                          accounts:
+                            type: "array"
+                            description: ""
+                            items:
+                              type: "object"
+                              properties:
+                                id:
+                                  type: "integer"
+                                  description: ""
+                                  format: "int64"
+                                tenantId:
+                                  type: "integer"
+                                  description: ""
+                                  format: "int64"
+                                userId:
+                                  type: "integer"
+                                  description: ""
+                                  format: "int64"
+                                identityType:
+                                  type: "string"
+                                  description: ""
+                                identifier:
+                                  type: "string"
+                                  description: ""
+                                passwordVersion:
+                                  type: "integer"
+                                  description: ""
+                                primary:
+                                  type: "boolean"
+                                  description: ""
+                                verified:
+                                  type: "boolean"
+                                  description: ""
+                                verifiedAt:
+                                  type: "string"
+                                  description: ""
+                                failedAttempts:
+                                  type: "integer"
+                                  description: ""
+                                lockUntil:
+                                  type: "string"
+                                  description: ""
+                                lastLoginAt:
+                                  type: "string"
+                                  description: ""
+                                meta:
+                                  type: "object"
+                                  properties:
+                                    key:
+                                      type: "object"
+                                      properties: {}
+                                  description: ""
+                                status:
+                                  type: "string"
+                                  description: "{DISABLED=DISABLED, ACTIVE=ACTIVE,\
+                                    \ LOCKED=LOCKED}"
+                                  enum:
+                                  - "DISABLED"
+                                  - "ACTIVE"
+                                  - "LOCKED"
+                                createdAt:
+                                  type: "string"
+                                  description: ""
+                                updatedAt:
+                                  type: "string"
+                                  description: ""
+                              description: "com.example.base.auth.dto.AccountDto"
+                          roles:
+                            type: "array"
+                            description: ""
+                            items:
+                              type: "object"
+                              properties:
+                                id:
+                                  type: "integer"
+                                  description: ""
+                                  format: "int64"
+                                tenantId:
+                                  type: "integer"
+                                  description: ""
+                                  format: "int64"
+                                code:
+                                  type: "string"
+                                  description: ""
+                                name:
+                                  type: "string"
+                                  description: ""
+                                level:
+                                  type: "integer"
+                                  description: ""
+                                builtIn:
+                                  type: "boolean"
+                                  description: ""
+                                status:
+                                  type: "integer"
+                                  description: ""
+                                remark:
+                                  type: "string"
+                                  description: ""
+                                createdAt:
+                                  type: "string"
+                                  description: ""
+                                updatedAt:
+                                  type: "string"
+                                  description: ""
+                                permissions:
+                                  type: "array"
+                                  description: ""
+                                  items:
+                                    type: "object"
+                                    properties:
+                                      id:
+                                        type: "integer"
+                                        description: ""
+                                        format: "int64"
+                                      tenantId:
+                                        type: "integer"
+                                        description: ""
+                                        format: "int64"
+                                      type:
+                                        type: "string"
+                                        description: "{API=API, MENU=MENU, DATA=DATA}"
+                                        enum:
+                                        - "API"
+                                        - "MENU"
+                                        - "DATA"
+                                      code:
+                                        type: "string"
+                                        description: ""
+                                      name:
+                                        type: "string"
+                                        description: ""
+                                      resource:
+                                        type: "string"
+                                        description: ""
+                                      httpMethod:
+                                        type: "string"
+                                        description: ""
+                                      action:
+                                        type: "string"
+                                        description: ""
+                                      parentId:
+                                        type: "integer"
+                                        description: ""
+                                        format: "int64"
+                                      orderNo:
+                                        type: "integer"
+                                        description: ""
+                                      status:
+                                        type: "integer"
+                                        description: ""
+                                      createdAt:
+                                        type: "string"
+                                        description: ""
+                                      updatedAt:
+                                        type: "string"
+                                        description: ""
+                                    description: "com.example.base.auth.dto.PermissionDto"
+                              description: "com.example.base.auth.dto.RoleDto"
+                        description: ""
+                      roles:
+                        type: "array"
+                        description: ""
+                        items:
+                          type: "object"
+                          properties:
+                            id:
+                              type: "integer"
+                              description: ""
+                              format: "int64"
+                            tenantId:
+                              type: "integer"
+                              description: ""
+                              format: "int64"
+                            code:
+                              type: "string"
+                              description: ""
+                            name:
+                              type: "string"
+                              description: ""
+                            level:
+                              type: "integer"
+                              description: ""
+                            builtIn:
+                              type: "boolean"
+                              description: ""
+                            status:
+                              type: "integer"
+                              description: ""
+                            remark:
+                              type: "string"
+                              description: ""
+                            createdAt:
+                              type: "string"
+                              description: ""
+                            updatedAt:
+                              type: "string"
+                              description: ""
+                            permissions:
+                              type: "array"
+                              description: ""
+                              items:
+                                type: "object"
+                                properties:
+                                  id:
+                                    type: "integer"
+                                    description: ""
+                                    format: "int64"
+                                  tenantId:
+                                    type: "integer"
+                                    description: ""
+                                    format: "int64"
+                                  type:
+                                    type: "string"
+                                    description: "{API=API, MENU=MENU, DATA=DATA}"
+                                    enum:
+                                    - "API"
+                                    - "MENU"
+                                    - "DATA"
+                                  code:
+                                    type: "string"
+                                    description: ""
+                                  name:
+                                    type: "string"
+                                    description: ""
+                                  resource:
+                                    type: "string"
+                                    description: ""
+                                  httpMethod:
+                                    type: "string"
+                                    description: ""
+                                  action:
+                                    type: "string"
+                                    description: ""
+                                  parentId:
+                                    type: "integer"
+                                    description: ""
+                                    format: "int64"
+                                  orderNo:
+                                    type: "integer"
+                                    description: ""
+                                  status:
+                                    type: "integer"
+                                    description: ""
+                                  createdAt:
+                                    type: "string"
+                                    description: ""
+                                  updatedAt:
+                                    type: "string"
+                                    description: ""
+                                description: "com.example.base.auth.dto.PermissionDto"
+                          description: "com.example.base.auth.dto.RoleDto"
+                        default: "Collections.emptyList()"
+                      permissions:
+                        type: "array"
+                        description: ""
+                        items:
+                          type: "string"
+                        default: "Collections.emptyList()"
+                    description: ""
+  /roles:
+    get:
+      summary: "listRoles"
+      description: "listRoles"
+      parameters:
+      - name: "pageNo"
+        in: "query"
+        description: ""
+        required: true
+        schema:
+          type: "integer"
+          nullable: false
+          default: "1"
+      - name: "pageSize"
+        in: "query"
+        description: ""
+        required: true
+        schema:
+          type: "integer"
+          nullable: false
+          default: "20"
+      - name: "keyword"
+        in: "query"
+        description: ""
+        required: false
+        schema:
+          type: "string"
+          nullable: false
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  code:
+                    type: "string"
+                    description: ""
+                  message:
+                    type: "string"
+                    description: ""
+                  data:
+                    type: "object"
+                    properties:
+                      pageNo:
+                        type: "integer"
+                        description: ""
+                        format: "int64"
+                      pageSize:
+                        type: "integer"
+                        description: ""
+                        format: "int64"
+                      total:
+                        type: "integer"
+                        description: ""
+                        format: "int64"
+                      hasNext:
+                        type: "boolean"
+                        description: ""
+                      items:
+                        type: "array"
+                        description: ""
+                        items:
+                          type: "object"
+                          properties:
+                            id:
+                              type: "integer"
+                              description: ""
+                              format: "int64"
+                            tenantId:
+                              type: "integer"
+                              description: ""
+                              format: "int64"
+                            code:
+                              type: "string"
+                              description: ""
+                            name:
+                              type: "string"
+                              description: ""
+                            level:
+                              type: "integer"
+                              description: ""
+                            builtIn:
+                              type: "boolean"
+                              description: ""
+                            status:
+                              type: "integer"
+                              description: ""
+                            remark:
+                              type: "string"
+                              description: ""
+                            createdAt:
+                              type: "string"
+                              description: ""
+                            updatedAt:
+                              type: "string"
+                              description: ""
+                            permissions:
+                              type: "array"
+                              description: ""
+                              items:
+                                type: "object"
+                                properties:
+                                  id:
+                                    type: "integer"
+                                    description: ""
+                                    format: "int64"
+                                  tenantId:
+                                    type: "integer"
+                                    description: ""
+                                    format: "int64"
+                                  type:
+                                    type: "string"
+                                    description: "{API=API, MENU=MENU, DATA=DATA}"
+                                    enum:
+                                    - "API"
+                                    - "MENU"
+                                    - "DATA"
+                                  code:
+                                    type: "string"
+                                    description: ""
+                                  name:
+                                    type: "string"
+                                    description: ""
+                                  resource:
+                                    type: "string"
+                                    description: ""
+                                  httpMethod:
+                                    type: "string"
+                                    description: ""
+                                  action:
+                                    type: "string"
+                                    description: ""
+                                  parentId:
+                                    type: "integer"
+                                    description: ""
+                                    format: "int64"
+                                  orderNo:
+                                    type: "integer"
+                                    description: ""
+                                  status:
+                                    type: "integer"
+                                    description: ""
+                                  createdAt:
+                                    type: "string"
+                                    description: ""
+                                  updatedAt:
+                                    type: "string"
+                                    description: ""
+                                description: "com.example.base.auth.dto.PermissionDto"
+                          description: "com.example.base.auth.dto.RoleDto"
+                    description: ""
+    post:
+      summary: "createRole"
+      description: "createRole"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - "code"
+              - "name"
+              type: "object"
+              properties:
+                code:
+                  type: "string"
+                  description: ""
+                name:
+                  type: "string"
+                  description: ""
+                level:
+                  type: "integer"
+                  description: ""
+                  default: 100
+                status:
+                  type: "integer"
+                  description: ""
+                  default: 1
+                remark:
+                  type: "string"
+                  description: ""
+              description: ""
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  code:
+                    type: "string"
+                    description: ""
+                  message:
+                    type: "string"
+                    description: ""
+                  data:
+                    type: "object"
+                    properties:
+                      id:
+                        type: "integer"
+                        description: ""
+                        format: "int64"
+                      tenantId:
+                        type: "integer"
+                        description: ""
+                        format: "int64"
+                      code:
+                        type: "string"
+                        description: ""
+                      name:
+                        type: "string"
+                        description: ""
+                      level:
+                        type: "integer"
+                        description: ""
+                      builtIn:
+                        type: "boolean"
+                        description: ""
+                      status:
+                        type: "integer"
+                        description: ""
+                      remark:
+                        type: "string"
+                        description: ""
+                      createdAt:
+                        type: "string"
+                        description: ""
+                      updatedAt:
+                        type: "string"
+                        description: ""
+                      permissions:
+                        type: "array"
+                        description: ""
+                        items:
+                          type: "object"
+                          properties:
+                            id:
+                              type: "integer"
+                              description: ""
+                              format: "int64"
+                            tenantId:
+                              type: "integer"
+                              description: ""
+                              format: "int64"
+                            type:
+                              type: "string"
+                              description: "{API=API, MENU=MENU, DATA=DATA}"
+                              enum:
+                              - "API"
+                              - "MENU"
+                              - "DATA"
+                            code:
+                              type: "string"
+                              description: ""
+                            name:
+                              type: "string"
+                              description: ""
+                            resource:
+                              type: "string"
+                              description: ""
+                            httpMethod:
+                              type: "string"
+                              description: ""
+                            action:
+                              type: "string"
+                              description: ""
+                            parentId:
+                              type: "integer"
+                              description: ""
+                              format: "int64"
+                            orderNo:
+                              type: "integer"
+                              description: ""
+                            status:
+                              type: "integer"
+                              description: ""
+                            createdAt:
+                              type: "string"
+                              description: ""
+                            updatedAt:
+                              type: "string"
+                              description: ""
+                          description: "com.example.base.auth.dto.PermissionDto"
+                    description: ""
+  /roles/{id}:
+    get:
+      summary: "getRole"
+      description: "getRole"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: ""
+        required: true
+        schema:
+          type: "integer"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  code:
+                    type: "string"
+                    description: ""
+                  message:
+                    type: "string"
+                    description: ""
+                  data:
+                    type: "object"
+                    properties:
+                      id:
+                        type: "integer"
+                        description: ""
+                        format: "int64"
+                      tenantId:
+                        type: "integer"
+                        description: ""
+                        format: "int64"
+                      code:
+                        type: "string"
+                        description: ""
+                      name:
+                        type: "string"
+                        description: ""
+                      level:
+                        type: "integer"
+                        description: ""
+                      builtIn:
+                        type: "boolean"
+                        description: ""
+                      status:
+                        type: "integer"
+                        description: ""
+                      remark:
+                        type: "string"
+                        description: ""
+                      createdAt:
+                        type: "string"
+                        description: ""
+                      updatedAt:
+                        type: "string"
+                        description: ""
+                      permissions:
+                        type: "array"
+                        description: ""
+                        items:
+                          type: "object"
+                          properties:
+                            id:
+                              type: "integer"
+                              description: ""
+                              format: "int64"
+                            tenantId:
+                              type: "integer"
+                              description: ""
+                              format: "int64"
+                            type:
+                              type: "string"
+                              description: "{API=API, MENU=MENU, DATA=DATA}"
+                              enum:
+                              - "API"
+                              - "MENU"
+                              - "DATA"
+                            code:
+                              type: "string"
+                              description: ""
+                            name:
+                              type: "string"
+                              description: ""
+                            resource:
+                              type: "string"
+                              description: ""
+                            httpMethod:
+                              type: "string"
+                              description: ""
+                            action:
+                              type: "string"
+                              description: ""
+                            parentId:
+                              type: "integer"
+                              description: ""
+                              format: "int64"
+                            orderNo:
+                              type: "integer"
+                              description: ""
+                            status:
+                              type: "integer"
+                              description: ""
+                            createdAt:
+                              type: "string"
+                              description: ""
+                            updatedAt:
+                              type: "string"
+                              description: ""
+                          description: "com.example.base.auth.dto.PermissionDto"
+                    description: ""
+    delete:
+      summary: "deleteRole"
+      description: "deleteRole"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: ""
+        required: true
+        schema:
+          type: "integer"
+      responses:
+        "200":
+          description: "No Content"
+    patch:
+      summary: "updateRole"
+      description: "updateRole"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: ""
+        required: true
+        schema:
+          type: "integer"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                name:
+                  type: "string"
+                  description: ""
+                level:
+                  type: "integer"
+                  description: ""
+                status:
+                  type: "integer"
+                  description: ""
+                remark:
+                  type: "string"
+                  description: ""
+              description: ""
+      responses:
+        "200":
+          description: "No Content"
+  /roles/{id}/permissions:
+    get:
+      summary: "listRolePermissions"
+      description: "listRolePermissions"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: ""
+        required: true
+        schema:
+          type: "integer"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  code:
+                    type: "string"
+                    description: ""
+                  message:
+                    type: "string"
+                    description: ""
+                  data:
+                    type: "array"
+                    description: ""
+                    items:
+                      type: "object"
+                      properties:
+                        id:
+                          type: "integer"
+                          description: ""
+                          format: "int64"
+                        tenantId:
+                          type: "integer"
+                          description: ""
+                          format: "int64"
+                        type:
+                          type: "string"
+                          description: "{API=API, MENU=MENU, DATA=DATA}"
+                          enum:
+                          - "API"
+                          - "MENU"
+                          - "DATA"
+                        code:
+                          type: "string"
+                          description: ""
+                        name:
+                          type: "string"
+                          description: ""
+                        resource:
+                          type: "string"
+                          description: ""
+                        httpMethod:
+                          type: "string"
+                          description: ""
+                        action:
+                          type: "string"
+                          description: ""
+                        parentId:
+                          type: "integer"
+                          description: ""
+                          format: "int64"
+                        orderNo:
+                          type: "integer"
+                          description: ""
+                        status:
+                          type: "integer"
+                          description: ""
+                        createdAt:
+                          type: "string"
+                          description: ""
+                        updatedAt:
+                          type: "string"
+                          description: ""
+                      description: "com.example.base.auth.dto.PermissionDto"
+    put:
+      summary: "replaceRolePermissions"
+      description: "replaceRolePermissions"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: ""
+        required: true
+        schema:
+          type: "integer"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - "permIds"
+              type: "object"
+              properties:
+                permIds:
+                  type: "array"
+                  description: ""
+                  items:
+                    type: "integer"
+              description: ""
+      responses:
+        "200":
+          description: "No Content"
+  /permissions:
+    get:
+      summary: "listPermissions"
+      description: "listPermissions"
+      parameters:
+      - name: "pageNo"
+        in: "query"
+        description: ""
+        required: true
+        schema:
+          type: "integer"
+          nullable: false
+          default: "1"
+      - name: "pageSize"
+        in: "query"
+        description: ""
+        required: true
+        schema:
+          type: "integer"
+          nullable: false
+          default: "20"
+      - name: "type"
+        in: "query"
+        description: ""
+        required: false
+        schema:
+          type: "string"
+          nullable: false
+      - name: "keyword"
+        in: "query"
+        description: ""
+        required: false
+        schema:
+          type: "string"
+          nullable: false
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  code:
+                    type: "string"
+                    description: ""
+                  message:
+                    type: "string"
+                    description: ""
+                  data:
+                    type: "object"
+                    properties:
+                      pageNo:
+                        type: "integer"
+                        description: ""
+                        format: "int64"
+                      pageSize:
+                        type: "integer"
+                        description: ""
+                        format: "int64"
+                      total:
+                        type: "integer"
+                        description: ""
+                        format: "int64"
+                      hasNext:
+                        type: "boolean"
+                        description: ""
+                      items:
+                        type: "array"
+                        description: ""
+                        items:
+                          type: "object"
+                          properties:
+                            id:
+                              type: "integer"
+                              description: ""
+                              format: "int64"
+                            tenantId:
+                              type: "integer"
+                              description: ""
+                              format: "int64"
+                            type:
+                              type: "string"
+                              description: "{API=API, MENU=MENU, DATA=DATA}"
+                              enum:
+                              - "API"
+                              - "MENU"
+                              - "DATA"
+                            code:
+                              type: "string"
+                              description: ""
+                            name:
+                              type: "string"
+                              description: ""
+                            resource:
+                              type: "string"
+                              description: ""
+                            httpMethod:
+                              type: "string"
+                              description: ""
+                            action:
+                              type: "string"
+                              description: ""
+                            parentId:
+                              type: "integer"
+                              description: ""
+                              format: "int64"
+                            orderNo:
+                              type: "integer"
+                              description: ""
+                            status:
+                              type: "integer"
+                              description: ""
+                            createdAt:
+                              type: "string"
+                              description: ""
+                            updatedAt:
+                              type: "string"
+                              description: ""
+                          description: "com.example.base.auth.dto.PermissionDto"
+                    description: ""
+    post:
+      summary: "createPermission"
+      description: "createPermission"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - "code"
+              - "name"
+              type: "object"
+              properties:
+                type:
+                  type: "string"
+                  description: ""
+                  default: "api"
+                code:
+                  type: "string"
+                  description: ""
+                name:
+                  type: "string"
+                  description: ""
+                resource:
+                  type: "string"
+                  description: ""
+                httpMethod:
+                  type: "string"
+                  description: ""
+                action:
+                  type: "string"
+                  description: ""
+                parentId:
+                  type: "integer"
+                  description: ""
+                  format: "int64"
+                orderNo:
+                  type: "integer"
+                  description: ""
+                  default: 0
+                status:
+                  type: "integer"
+                  description: ""
+                  default: 1
+              description: ""
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  code:
+                    type: "string"
+                    description: ""
+                  message:
+                    type: "string"
+                    description: ""
+                  data:
+                    type: "object"
+                    properties:
+                      id:
+                        type: "integer"
+                        description: ""
+                        format: "int64"
+                      tenantId:
+                        type: "integer"
+                        description: ""
+                        format: "int64"
+                      type:
+                        type: "string"
+                        description: "{API=API, MENU=MENU, DATA=DATA}"
+                        enum:
+                        - "API"
+                        - "MENU"
+                        - "DATA"
+                      code:
+                        type: "string"
+                        description: ""
+                      name:
+                        type: "string"
+                        description: ""
+                      resource:
+                        type: "string"
+                        description: ""
+                      httpMethod:
+                        type: "string"
+                        description: ""
+                      action:
+                        type: "string"
+                        description: ""
+                      parentId:
+                        type: "integer"
+                        description: ""
+                        format: "int64"
+                      orderNo:
+                        type: "integer"
+                        description: ""
+                      status:
+                        type: "integer"
+                        description: ""
+                      createdAt:
+                        type: "string"
+                        description: ""
+                      updatedAt:
+                        type: "string"
+                        description: ""
+                    description: ""
+  /permissions/{id}:
+    get:
+      summary: "getPermission"
+      description: "getPermission"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: ""
+        required: true
+        schema:
+          type: "integer"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  code:
+                    type: "string"
+                    description: ""
+                  message:
+                    type: "string"
+                    description: ""
+                  data:
+                    type: "object"
+                    properties:
+                      id:
+                        type: "integer"
+                        description: ""
+                        format: "int64"
+                      tenantId:
+                        type: "integer"
+                        description: ""
+                        format: "int64"
+                      type:
+                        type: "string"
+                        description: "{API=API, MENU=MENU, DATA=DATA}"
+                        enum:
+                        - "API"
+                        - "MENU"
+                        - "DATA"
+                      code:
+                        type: "string"
+                        description: ""
+                      name:
+                        type: "string"
+                        description: ""
+                      resource:
+                        type: "string"
+                        description: ""
+                      httpMethod:
+                        type: "string"
+                        description: ""
+                      action:
+                        type: "string"
+                        description: ""
+                      parentId:
+                        type: "integer"
+                        description: ""
+                        format: "int64"
+                      orderNo:
+                        type: "integer"
+                        description: ""
+                      status:
+                        type: "integer"
+                        description: ""
+                      createdAt:
+                        type: "string"
+                        description: ""
+                      updatedAt:
+                        type: "string"
+                        description: ""
+                    description: ""
+    delete:
+      summary: "deletePermission"
+      description: "deletePermission"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: ""
+        required: true
+        schema:
+          type: "integer"
+      responses:
+        "200":
+          description: "No Content"
+    patch:
+      summary: "updatePermission"
+      description: "updatePermission"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: ""
+        required: true
+        schema:
+          type: "integer"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                name:
+                  type: "string"
+                  description: ""
+                resource:
+                  type: "string"
+                  description: ""
+                httpMethod:
+                  type: "string"
+                  description: ""
+                action:
+                  type: "string"
+                  description: ""
+                parentId:
+                  type: "integer"
+                  description: ""
+                  format: "int64"
+                orderNo:
+                  type: "integer"
+                  description: ""
+                status:
+                  type: "integer"
+                  description: ""
+              description: ""
+      responses:
+        "200":
+          description: "No Content"
+components:
+  schemas:
+    com.example.base.auth.dto.AccountCreateRequest:
+      required:
+      - "identifier"
+      - "identityType"
+      type: "object"
+      properties:
+        identityType:
+          type: "string"
+          description: ""
+        identifier:
+          type: "string"
+          description: ""
+        credential:
+          maxLength: 128
+          minLength: 6
+          type: "string"
+          description: ""
+        primary:
+          type: "boolean"
+          description: ""
+          default: "true"
+      description: "com.example.base.auth.dto.AccountCreateRequest"
+    com.example.base.auth.dto.AccountDto:
+      type: "object"
+      properties:
+        id:
+          type: "integer"
+          description: ""
+          format: "int64"
+        tenantId:
+          type: "integer"
+          description: ""
+          format: "int64"
+        userId:
+          type: "integer"
+          description: ""
+          format: "int64"
+        identityType:
+          type: "string"
+          description: ""
+        identifier:
+          type: "string"
+          description: ""
+        passwordVersion:
+          type: "integer"
+          description: ""
+        primary:
+          type: "boolean"
+          description: ""
+        verified:
+          type: "boolean"
+          description: ""
+        verifiedAt:
+          type: "string"
+          description: ""
+        failedAttempts:
+          type: "integer"
+          description: ""
+        lockUntil:
+          type: "string"
+          description: ""
+        lastLoginAt:
+          type: "string"
+          description: ""
+        meta:
+          type: "object"
+          properties:
+            key:
+              type: "object"
+              properties: {}
+          description: ""
+        status:
+          type: "string"
+          description: "{DISABLED=DISABLED, ACTIVE=ACTIVE, LOCKED=LOCKED}"
+          enum:
+          - "DISABLED"
+          - "ACTIVE"
+          - "LOCKED"
+        createdAt:
+          type: "string"
+          description: ""
+        updatedAt:
+          type: "string"
+          description: ""
+      description: "com.example.base.auth.dto.AccountDto"
+    com.example.base.auth.dto.PermissionDto:
+      type: "object"
+      properties:
+        id:
+          type: "integer"
+          description: ""
+          format: "int64"
+        tenantId:
+          type: "integer"
+          description: ""
+          format: "int64"
+        type:
+          type: "string"
+          description: "{API=API, MENU=MENU, DATA=DATA}"
+          enum:
+          - "API"
+          - "MENU"
+          - "DATA"
+        code:
+          type: "string"
+          description: ""
+        name:
+          type: "string"
+          description: ""
+        resource:
+          type: "string"
+          description: ""
+        httpMethod:
+          type: "string"
+          description: ""
+        action:
+          type: "string"
+          description: ""
+        parentId:
+          type: "integer"
+          description: ""
+          format: "int64"
+        orderNo:
+          type: "integer"
+          description: ""
+        status:
+          type: "integer"
+          description: ""
+        createdAt:
+          type: "string"
+          description: ""
+        updatedAt:
+          type: "string"
+          description: ""
+      description: ""
+    com.example.base.auth.dto.RoleDto:
+      type: "object"
+      properties:
+        id:
+          type: "integer"
+          description: ""
+          format: "int64"
+        tenantId:
+          type: "integer"
+          description: ""
+          format: "int64"
+        code:
+          type: "string"
+          description: ""
+        name:
+          type: "string"
+          description: ""
+        level:
+          type: "integer"
+          description: ""
+        builtIn:
+          type: "boolean"
+          description: ""
+        status:
+          type: "integer"
+          description: ""
+        remark:
+          type: "string"
+          description: ""
+        createdAt:
+          type: "string"
+          description: ""
+        updatedAt:
+          type: "string"
+          description: ""
+        permissions:
+          type: "array"
+          description: ""
+          items:
+            type: "object"
+            properties:
+              id:
+                type: "integer"
+                description: ""
+                format: "int64"
+              tenantId:
+                type: "integer"
+                description: ""
+                format: "int64"
+              type:
+                type: "string"
+                description: "{API=API, MENU=MENU, DATA=DATA}"
+                enum:
+                - "API"
+                - "MENU"
+                - "DATA"
+              code:
+                type: "string"
+                description: ""
+              name:
+                type: "string"
+                description: ""
+              resource:
+                type: "string"
+                description: ""
+              httpMethod:
+                type: "string"
+                description: ""
+              action:
+                type: "string"
+                description: ""
+              parentId:
+                type: "integer"
+                description: ""
+                format: "int64"
+              orderNo:
+                type: "integer"
+                description: ""
+              status:
+                type: "integer"
+                description: ""
+              createdAt:
+                type: "string"
+                description: ""
+              updatedAt:
+                type: "string"
+                description: ""
+            description: "com.example.base.auth.dto.PermissionDto"
+      description: ""
+    com.example.base.user.dto.UserDto:
+      type: "object"
+      properties:
+        id:
+          type: "integer"
+          description: ""
+          format: "int64"
+        tenantId:
+          type: "integer"
+          description: ""
+          format: "int64"
+        nickname:
+          type: "string"
+          description: ""
+        avatarUrl:
+          type: "string"
+          description: ""
+        gender:
+          type: "string"
+          description: "{UNKNOWN=UNKNOWN, MALE=MALE, FEMALE=FEMALE, OTHER=OTHER}"
+          enum:
+          - "UNKNOWN"
+          - "MALE"
+          - "FEMALE"
+          - "OTHER"
+        timezone:
+          type: "string"
+          description: ""
+        locale:
+          type: "string"
+          description: ""
+        status:
+          type: "string"
+          description: "{DISABLED=DISABLED, ACTIVE=ACTIVE, LOCKED=LOCKED}"
+          enum:
+          - "DISABLED"
+          - "ACTIVE"
+          - "LOCKED"
+        tokenVersion:
+          type: "integer"
+          description: ""
+        lastLoginAt:
+          type: "string"
+          description: ""
+        remark:
+          type: "string"
+          description: ""
+        createdAt:
+          type: "string"
+          description: ""
+        updatedAt:
+          type: "string"
+          description: ""
+        accounts:
+          type: "array"
+          description: ""
+          items:
+            type: "object"
+            properties:
+              id:
+                type: "integer"
+                description: ""
+                format: "int64"
+              tenantId:
+                type: "integer"
+                description: ""
+                format: "int64"
+              userId:
+                type: "integer"
+                description: ""
+                format: "int64"
+              identityType:
+                type: "string"
+                description: ""
+              identifier:
+                type: "string"
+                description: ""
+              passwordVersion:
+                type: "integer"
+                description: ""
+              primary:
+                type: "boolean"
+                description: ""
+              verified:
+                type: "boolean"
+                description: ""
+              verifiedAt:
+                type: "string"
+                description: ""
+              failedAttempts:
+                type: "integer"
+                description: ""
+              lockUntil:
+                type: "string"
+                description: ""
+              lastLoginAt:
+                type: "string"
+                description: ""
+              meta:
+                type: "object"
+                properties:
+                  key:
+                    type: "object"
+                    properties: {}
+                description: ""
+              status:
+                type: "string"
+                description: "{DISABLED=DISABLED, ACTIVE=ACTIVE, LOCKED=LOCKED}"
+                enum:
+                - "DISABLED"
+                - "ACTIVE"
+                - "LOCKED"
+              createdAt:
+                type: "string"
+                description: ""
+              updatedAt:
+                type: "string"
+                description: ""
+            description: "com.example.base.auth.dto.AccountDto"
+        roles:
+          type: "array"
+          description: ""
+          items:
+            type: "object"
+            properties:
+              id:
+                type: "integer"
+                description: ""
+                format: "int64"
+              tenantId:
+                type: "integer"
+                description: ""
+                format: "int64"
+              code:
+                type: "string"
+                description: ""
+              name:
+                type: "string"
+                description: ""
+              level:
+                type: "integer"
+                description: ""
+              builtIn:
+                type: "boolean"
+                description: ""
+              status:
+                type: "integer"
+                description: ""
+              remark:
+                type: "string"
+                description: ""
+              createdAt:
+                type: "string"
+                description: ""
+              updatedAt:
+                type: "string"
+                description: ""
+              permissions:
+                type: "array"
+                description: ""
+                items:
+                  type: "object"
+                  properties:
+                    id:
+                      type: "integer"
+                      description: ""
+                      format: "int64"
+                    tenantId:
+                      type: "integer"
+                      description: ""
+                      format: "int64"
+                    type:
+                      type: "string"
+                      description: "{API=API, MENU=MENU, DATA=DATA}"
+                      enum:
+                      - "API"
+                      - "MENU"
+                      - "DATA"
+                    code:
+                      type: "string"
+                      description: ""
+                    name:
+                      type: "string"
+                      description: ""
+                    resource:
+                      type: "string"
+                      description: ""
+                    httpMethod:
+                      type: "string"
+                      description: ""
+                    action:
+                      type: "string"
+                      description: ""
+                    parentId:
+                      type: "integer"
+                      description: ""
+                      format: "int64"
+                    orderNo:
+                      type: "integer"
+                      description: ""
+                    status:
+                      type: "integer"
+                      description: ""
+                    createdAt:
+                      type: "string"
+                      description: ""
+                    updatedAt:
+                      type: "string"
+                      description: ""
+                  description: "com.example.base.auth.dto.PermissionDto"
+            description: "com.example.base.auth.dto.RoleDto"
+      description: ""
+    com.example.base.auth.dto.TokenResponse:
+      type: "object"
+      properties:
+        tokenType:
+          type: "string"
+          description: ""
+        accessToken:
+          type: "string"
+          description: ""
+        expiresIn:
+          type: "integer"
+          description: ""
+          format: "int64"
+        refreshToken:
+          type: "string"
+          description: ""
+        jti:
+          type: "string"
+          description: ""
+        user:
+          type: "object"
+          properties:
+            id:
+              type: "integer"
+              description: ""
+              format: "int64"
+            tenantId:
+              type: "integer"
+              description: ""
+              format: "int64"
+            nickname:
+              type: "string"
+              description: ""
+            avatarUrl:
+              type: "string"
+              description: ""
+            gender:
+              type: "string"
+              description: "{UNKNOWN=UNKNOWN, MALE=MALE, FEMALE=FEMALE, OTHER=OTHER}"
+              enum:
+              - "UNKNOWN"
+              - "MALE"
+              - "FEMALE"
+              - "OTHER"
+            timezone:
+              type: "string"
+              description: ""
+            locale:
+              type: "string"
+              description: ""
+            status:
+              type: "string"
+              description: "{DISABLED=DISABLED, ACTIVE=ACTIVE, LOCKED=LOCKED}"
+              enum:
+              - "DISABLED"
+              - "ACTIVE"
+              - "LOCKED"
+            tokenVersion:
+              type: "integer"
+              description: ""
+            lastLoginAt:
+              type: "string"
+              description: ""
+            remark:
+              type: "string"
+              description: ""
+            createdAt:
+              type: "string"
+              description: ""
+            updatedAt:
+              type: "string"
+              description: ""
+            accounts:
+              type: "array"
+              description: ""
+              items:
+                type: "object"
+                properties:
+                  id:
+                    type: "integer"
+                    description: ""
+                    format: "int64"
+                  tenantId:
+                    type: "integer"
+                    description: ""
+                    format: "int64"
+                  userId:
+                    type: "integer"
+                    description: ""
+                    format: "int64"
+                  identityType:
+                    type: "string"
+                    description: ""
+                  identifier:
+                    type: "string"
+                    description: ""
+                  passwordVersion:
+                    type: "integer"
+                    description: ""
+                  primary:
+                    type: "boolean"
+                    description: ""
+                  verified:
+                    type: "boolean"
+                    description: ""
+                  verifiedAt:
+                    type: "string"
+                    description: ""
+                  failedAttempts:
+                    type: "integer"
+                    description: ""
+                  lockUntil:
+                    type: "string"
+                    description: ""
+                  lastLoginAt:
+                    type: "string"
+                    description: ""
+                  meta:
+                    type: "object"
+                    properties:
+                      key:
+                        type: "object"
+                        properties: {}
+                    description: ""
+                  status:
+                    type: "string"
+                    description: "{DISABLED=DISABLED, ACTIVE=ACTIVE, LOCKED=LOCKED}"
+                    enum:
+                    - "DISABLED"
+                    - "ACTIVE"
+                    - "LOCKED"
+                  createdAt:
+                    type: "string"
+                    description: ""
+                  updatedAt:
+                    type: "string"
+                    description: ""
+                description: "com.example.base.auth.dto.AccountDto"
+            roles:
+              type: "array"
+              description: ""
+              items:
+                type: "object"
+                properties:
+                  id:
+                    type: "integer"
+                    description: ""
+                    format: "int64"
+                  tenantId:
+                    type: "integer"
+                    description: ""
+                    format: "int64"
+                  code:
+                    type: "string"
+                    description: ""
+                  name:
+                    type: "string"
+                    description: ""
+                  level:
+                    type: "integer"
+                    description: ""
+                  builtIn:
+                    type: "boolean"
+                    description: ""
+                  status:
+                    type: "integer"
+                    description: ""
+                  remark:
+                    type: "string"
+                    description: ""
+                  createdAt:
+                    type: "string"
+                    description: ""
+                  updatedAt:
+                    type: "string"
+                    description: ""
+                  permissions:
+                    type: "array"
+                    description: ""
+                    items:
+                      type: "object"
+                      properties:
+                        id:
+                          type: "integer"
+                          description: ""
+                          format: "int64"
+                        tenantId:
+                          type: "integer"
+                          description: ""
+                          format: "int64"
+                        type:
+                          type: "string"
+                          description: "{API=API, MENU=MENU, DATA=DATA}"
+                          enum:
+                          - "API"
+                          - "MENU"
+                          - "DATA"
+                        code:
+                          type: "string"
+                          description: ""
+                        name:
+                          type: "string"
+                          description: ""
+                        resource:
+                          type: "string"
+                          description: ""
+                        httpMethod:
+                          type: "string"
+                          description: ""
+                        action:
+                          type: "string"
+                          description: ""
+                        parentId:
+                          type: "integer"
+                          description: ""
+                          format: "int64"
+                        orderNo:
+                          type: "integer"
+                          description: ""
+                        status:
+                          type: "integer"
+                          description: ""
+                        createdAt:
+                          type: "string"
+                          description: ""
+                        updatedAt:
+                          type: "string"
+                          description: ""
+                      description: "com.example.base.auth.dto.PermissionDto"
+                description: "com.example.base.auth.dto.RoleDto"
+          description: ""
+      description: ""
+    com.example.base.auth.dto.CurrentUserResponse:
+      type: "object"
+      properties:
+        user:
+          type: "object"
+          properties:
+            id:
+              type: "integer"
+              description: ""
+              format: "int64"
+            tenantId:
+              type: "integer"
+              description: ""
+              format: "int64"
+            nickname:
+              type: "string"
+              description: ""
+            avatarUrl:
+              type: "string"
+              description: ""
+            gender:
+              type: "string"
+              description: "{UNKNOWN=UNKNOWN, MALE=MALE, FEMALE=FEMALE, OTHER=OTHER}"
+              enum:
+              - "UNKNOWN"
+              - "MALE"
+              - "FEMALE"
+              - "OTHER"
+            timezone:
+              type: "string"
+              description: ""
+            locale:
+              type: "string"
+              description: ""
+            status:
+              type: "string"
+              description: "{DISABLED=DISABLED, ACTIVE=ACTIVE, LOCKED=LOCKED}"
+              enum:
+              - "DISABLED"
+              - "ACTIVE"
+              - "LOCKED"
+            tokenVersion:
+              type: "integer"
+              description: ""
+            lastLoginAt:
+              type: "string"
+              description: ""
+            remark:
+              type: "string"
+              description: ""
+            createdAt:
+              type: "string"
+              description: ""
+            updatedAt:
+              type: "string"
+              description: ""
+            accounts:
+              type: "array"
+              description: ""
+              items:
+                type: "object"
+                properties:
+                  id:
+                    type: "integer"
+                    description: ""
+                    format: "int64"
+                  tenantId:
+                    type: "integer"
+                    description: ""
+                    format: "int64"
+                  userId:
+                    type: "integer"
+                    description: ""
+                    format: "int64"
+                  identityType:
+                    type: "string"
+                    description: ""
+                  identifier:
+                    type: "string"
+                    description: ""
+                  passwordVersion:
+                    type: "integer"
+                    description: ""
+                  primary:
+                    type: "boolean"
+                    description: ""
+                  verified:
+                    type: "boolean"
+                    description: ""
+                  verifiedAt:
+                    type: "string"
+                    description: ""
+                  failedAttempts:
+                    type: "integer"
+                    description: ""
+                  lockUntil:
+                    type: "string"
+                    description: ""
+                  lastLoginAt:
+                    type: "string"
+                    description: ""
+                  meta:
+                    type: "object"
+                    properties:
+                      key:
+                        type: "object"
+                        properties: {}
+                    description: ""
+                  status:
+                    type: "string"
+                    description: "{DISABLED=DISABLED, ACTIVE=ACTIVE, LOCKED=LOCKED}"
+                    enum:
+                    - "DISABLED"
+                    - "ACTIVE"
+                    - "LOCKED"
+                  createdAt:
+                    type: "string"
+                    description: ""
+                  updatedAt:
+                    type: "string"
+                    description: ""
+                description: "com.example.base.auth.dto.AccountDto"
+            roles:
+              type: "array"
+              description: ""
+              items:
+                type: "object"
+                properties:
+                  id:
+                    type: "integer"
+                    description: ""
+                    format: "int64"
+                  tenantId:
+                    type: "integer"
+                    description: ""
+                    format: "int64"
+                  code:
+                    type: "string"
+                    description: ""
+                  name:
+                    type: "string"
+                    description: ""
+                  level:
+                    type: "integer"
+                    description: ""
+                  builtIn:
+                    type: "boolean"
+                    description: ""
+                  status:
+                    type: "integer"
+                    description: ""
+                  remark:
+                    type: "string"
+                    description: ""
+                  createdAt:
+                    type: "string"
+                    description: ""
+                  updatedAt:
+                    type: "string"
+                    description: ""
+                  permissions:
+                    type: "array"
+                    description: ""
+                    items:
+                      type: "object"
+                      properties:
+                        id:
+                          type: "integer"
+                          description: ""
+                          format: "int64"
+                        tenantId:
+                          type: "integer"
+                          description: ""
+                          format: "int64"
+                        type:
+                          type: "string"
+                          description: "{API=API, MENU=MENU, DATA=DATA}"
+                          enum:
+                          - "API"
+                          - "MENU"
+                          - "DATA"
+                        code:
+                          type: "string"
+                          description: ""
+                        name:
+                          type: "string"
+                          description: ""
+                        resource:
+                          type: "string"
+                          description: ""
+                        httpMethod:
+                          type: "string"
+                          description: ""
+                        action:
+                          type: "string"
+                          description: ""
+                        parentId:
+                          type: "integer"
+                          description: ""
+                          format: "int64"
+                        orderNo:
+                          type: "integer"
+                          description: ""
+                        status:
+                          type: "integer"
+                          description: ""
+                        createdAt:
+                          type: "string"
+                          description: ""
+                        updatedAt:
+                          type: "string"
+                          description: ""
+                      description: "com.example.base.auth.dto.PermissionDto"
+                description: "com.example.base.auth.dto.RoleDto"
+          description: ""
+        roles:
+          type: "array"
+          description: ""
+          items:
+            type: "object"
+            properties:
+              id:
+                type: "integer"
+                description: ""
+                format: "int64"
+              tenantId:
+                type: "integer"
+                description: ""
+                format: "int64"
+              code:
+                type: "string"
+                description: ""
+              name:
+                type: "string"
+                description: ""
+              level:
+                type: "integer"
+                description: ""
+              builtIn:
+                type: "boolean"
+                description: ""
+              status:
+                type: "integer"
+                description: ""
+              remark:
+                type: "string"
+                description: ""
+              createdAt:
+                type: "string"
+                description: ""
+              updatedAt:
+                type: "string"
+                description: ""
+              permissions:
+                type: "array"
+                description: ""
+                items:
+                  type: "object"
+                  properties:
+                    id:
+                      type: "integer"
+                      description: ""
+                      format: "int64"
+                    tenantId:
+                      type: "integer"
+                      description: ""
+                      format: "int64"
+                    type:
+                      type: "string"
+                      description: "{API=API, MENU=MENU, DATA=DATA}"
+                      enum:
+                      - "API"
+                      - "MENU"
+                      - "DATA"
+                    code:
+                      type: "string"
+                      description: ""
+                    name:
+                      type: "string"
+                      description: ""
+                    resource:
+                      type: "string"
+                      description: ""
+                    httpMethod:
+                      type: "string"
+                      description: ""
+                    action:
+                      type: "string"
+                      description: ""
+                    parentId:
+                      type: "integer"
+                      description: ""
+                      format: "int64"
+                    orderNo:
+                      type: "integer"
+                      description: ""
+                    status:
+                      type: "integer"
+                      description: ""
+                    createdAt:
+                      type: "string"
+                      description: ""
+                    updatedAt:
+                      type: "string"
+                      description: ""
+                  description: "com.example.base.auth.dto.PermissionDto"
+            description: "com.example.base.auth.dto.RoleDto"
+          default: "Collections.emptyList()"
+        permissions:
+          type: "array"
+          description: ""
+          items:
+            type: "string"
+          default: "Collections.emptyList()"
+      description: ""

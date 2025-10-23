@@ -1,25 +1,35 @@
 # Repository Guidelines
 
 ## Project Structure & Module Organization
-Source code resides under `src/main/java/com/example/base` with domain packages such as `auth`, `user`, `common`, and `security`. Tests mirror this layout inside `src/test/java`. Shared configs and templates live in `src/main/resources`; adjust `application.yml` when changing datasources, cache, or JWT properties. Docs reference materials in `docs/db`, `docs/openapi`, and `docs/日志模块.md` for observability plans. Generated build artifacts belong in `target/` and must stay uncommitted.
+- Source lives under `src/main/java/com/example/base/...` with domain packages such as `auth`, `user`, `common`, and `security`.
+- Tests mirror production code under `src/test/java`, following identical package names.
+- Shared configs and templates sit in `src/main/resources`; adjust `application.yml` when datasource, cache, or JWT settings change.
+- Reference docs in `docs/db`, `docs/openapi` to keep observability and schema updates aligned.
+- Maven build output belongs in `target/` and must stay uncommitted.
 
 ## Build, Test, and Development Commands
-Use the Maven wrapper or local Maven with Java 21. Common commands:
-- `mvn clean verify`: run the full build, unit tests, and package the Spring Boot app.
-- `mvn spring-boot:run`: launch the API locally with the default profile.
-- `mvn -DskipTests package`: produce a jar quickly when tests are already covered.
+- `./mvnw clean verify`: run the full build, execute tests, and package the Spring Boot app.
+- `./mvnw spring-boot:run`: launch the API locally using the default profile.
+- `./mvnw -DskipTests package`: produce a jar quickly once tests already pass.
+- Use Java 21 locally; keep environment overrides in profiles or `.env`, never in VCS.
 
 ## Coding Style & Naming Conventions
-Follow Java 21 conventions with 4-space indentation and braces on the same line. REST controllers end with `Controller`, services with `Service`, and MyBatis entities with `Entity`. DTOs stay immutable via Lombok annotations such as `@Value`. Shared beans belong in `com.example.base.common.config`. Favor descriptive method names and keep package-private helpers near their usage.
+- Java 21 with 4-space indentation and braces on the same line.
+- REST controllers end with `Controller`, services with `Service`, MyBatis entities with `Entity`, and DTOs stay immutable via Lombok `@Value`.
+- Place shared beans in `com.example.base.common.config`; keep package-private helpers close to consumers.
+- Favour descriptive methods and add brief comments only for non-obvious logic.
 
 ## Testing Guidelines
-Write JUnit 5 tests that mirror the production package structure. Use Mockito for stubs and name test classes `{ClassName}Test` with methods like `shouldLoginWithValidCredentials`. Run `mvn clean verify` before submitting changes. Aim for meaningful coverage on domain logic and guard tenant-sensitive flows.
+- Rely on JUnit 5 and Mockito; mirror production packages (e.g., `src/test/java/com/example/base/auth`).
+- Name test classes `{ClassName}Test` and methods like `shouldLoginWithValidCredentials`.
+- Target meaningful coverage on domain and tenant-sensitive flows; run `./mvnw clean verify` before pushing.
 
 ## Commit & Pull Request Guidelines
-Author commits in the imperative mood (e.g., `auth: add refresh token rotation`) and keep changes scoped. Pull requests must explain intent, reference related docs or OpenAPI updates, and include manual or automated test evidence. Provide screenshots for UI-affecting work and confirm CI status before requesting review.
+- Write commits in imperative mood (e.g., `auth: add refresh token rotation`) and keep scope tight.
+- Pull requests must outline intent, link relevant docs or OpenAPI changes, and attach test evidence or UI screenshots when applicable.
+- Confirm CI status and tenant isolation handling prior to requesting review.
 
 ## Security & Configuration Tips
-Never commit real credentials; rely on placeholders and environment overrides in `application.yml`. Preserve tenant isolation by honoring `TenantFilter` and the `X-Tenant-Id` header for new endpoints. Extend caching through the existing Caffeine and Redis settings under `common.config` when needed, and document any configuration shifts.
-
-## Observability & Logging
-Follow the roadmap in `docs/日志模块.md`. Use Logback with `logstash-logback-encoder` for structured JSON logs and keep MDC keys such as `tenantId`, `traceId`, and `userId` populated. Configure Micrometer Tracing with OTLP exporters and align Fluent Bit or Grafana Agent settings so logs flow to Loki and traces to Tempo. Validate end-to-end observability before merging features that emit new logs.
+- Never commit real credentials; rely on placeholders and profile-based overrides in `application.yml`.
+- Maintain tenant isolation via `TenantFilter` and the `X-Tenant-Id` header on new endpoints.
+- Extend caching through existing Caffeine and Redis settings under `common.config`; document any configuration shifts.
