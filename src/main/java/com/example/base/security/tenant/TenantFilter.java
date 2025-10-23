@@ -20,12 +20,11 @@ public class TenantFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
         try {
             String tenantHeader = request.getHeader(SecurityConstants.TENANT_HEADER);
-            Long tenantId = 0L;
+            long tenantId = 0L;
             if (tenantHeader != null && !tenantHeader.isBlank()) {
                 try {
                     tenantId = Long.parseLong(tenantHeader.trim());
                 } catch (NumberFormatException ignored) {
-                    tenantId = 0L;
                 }
             }
             TenantContext.setTenantId(tenantId);
