@@ -4,7 +4,6 @@ services:
   mysql:
     image: mysql:8.0
     container_name: base-mysql
-    restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: secaml
@@ -29,7 +28,6 @@ services:
   redis:
     image: redis:7.2
     container_name: base-redis
-    restart: unless-stopped
     ports:
       - "6379:6379"
     command: ["redis-server", "--save", "60", "1", "--loglevel", "warning"]
@@ -41,7 +39,6 @@ services:
   loki:
     image: grafana/loki:2.9.7
     container_name: base-loki
-    restart: unless-stopped
     command: -config.file=/etc/loki/loki-config.yml
     ports:
       - "3100:3100"
@@ -55,7 +52,6 @@ services:
   tempo:
     image: grafana/tempo:2.4.1
     container_name: base-tempo
-    restart: unless-stopped
     command: -config.file=/etc/tempo/tempo-config.yml
     ports:
       - "3200:3200"
@@ -69,7 +65,6 @@ services:
   otel-collector:
     image: otel/opentelemetry-collector-contrib:0.102.0
     container_name: base-otel-collector
-    restart: unless-stopped
     command: ["--config=/etc/otelcol-contrib/config.yaml"]
     ports:
       - "4317:4317"
@@ -84,7 +79,6 @@ services:
   promtail:
     image: grafana/promtail:2.9.7
     container_name: base-promtail
-    restart: unless-stopped
     command: -config.file=/etc/promtail/promtail-config.yml
     volumes:
       - ./docker/promtail/promtail-config.yml:/etc/promtail/promtail-config.yml:ro
@@ -98,7 +92,6 @@ services:
   grafana:
     image: grafana/grafana:10.4.3
     container_name: base-grafana
-    restart: unless-stopped
     ports:
       - "3000:3000"
     environment:

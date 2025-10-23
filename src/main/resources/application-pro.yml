@@ -37,10 +37,10 @@ mybatis-plus:
       logic-delete-value: 1
       logic-not-delete-value: 0
       table-prefix:
+      logic-delete: true
   configuration:
     map-underscore-to-camel-case: true
     default-enum-type-handler: org.apache.ibatis.type.EnumTypeHandler
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 security:
   jwt:
@@ -50,3 +50,18 @@ security:
     refresh-token-ttl: 30d
     max-refresh-token-per-user: 50
 
+logging:
+  level:
+    com.example.base: off
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  tracing:
+    sampling:
+      probability: 1.0
+  otlp:
+    tracing:
+      endpoint: http://localhost:4318/v1/traces
