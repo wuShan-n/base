@@ -1,4 +1,6 @@
 spring:
+  application:
+    name: base-service
   datasource:
     url: jdbc:mysql://localhost:3306/secaml?useSSL=false&characterEncoding=utf8&serverTimezone=Asia/Shanghai
     username: root
@@ -51,3 +53,15 @@ security:
 logging:
   level:
     com.example.base: DEBUG
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  tracing:
+    sampling:
+      probability: 1.0
+  otlp:
+    tracing:
+      endpoint: http://localhost:4318/v1/traces

@@ -1,0 +1,124 @@
+version: "3.9"
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: base-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: secaml
+      MYSQL_USER: base
+      MYSQL_PASSWORD: base
+    command:
+      - --default-authentication-plugin=mysql_native_password
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - observability
+
+  redis:
+    image: redis:7.2
+    container_name: base-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    command: ["redis-server", "--save", "60", "1", "--loglevel", "warning"]
+    volumes:
+      - redis-data:/data
+    networks:
+      - observability
+
+  loki:
+    image: grafana/loki:2.9.7
+    container_name: base-loki
+    restart: unless-stopped
+    command: -config.file=/etc/loki/loki-config.yml
+    ports:
+      - "3100:3100"
+    volumes:
+      - ./docker/loki/loki-config.yml:/etc/loki/loki-config.yml:ro
+    tmpfs:
+      - /tmp/loki
+    networks:
+      - observability
+
+  tempo:
+    image: grafana/tempo:2.4.1
+    container_name: base-tempo
+    restart: unless-stopped
+    command: -config.file=/etc/tempo/tempo-config.yml
+    ports:
+      - "3200:3200"
+    volumes:
+      - ./docker/tempo/tempo-config.yml:/etc/tempo/tempo-config.yml:ro
+    tmpfs:
+      - /tmp/tempo
+    networks:
+      - observability
+
+  otel-collector:
+    image: otel/opentelemetry-collector-contrib:0.102.0
+    container_name: base-otel-collector
+    restart: unless-stopped
+    command: ["--config=/etc/otelcol-contrib/config.yaml"]
+    ports:
+      - "4317:4317"
+      - "4318:4318"
+    volumes:
+      - ./docker/otel/collector-config.yml:/etc/otelcol-contrib/config.yaml:ro
+    depends_on:
+      - tempo
+    networks:
+      - observability
+
+  promtail:
+    image: grafana/promtail:2.9.7
+    container_name: base-promtail
+    restart: unless-stopped
+    command: -config.file=/etc/promtail/promtail-config.yml
+    volumes:
+      - ./docker/promtail/promtail-config.yml:/etc/promtail/promtail-config.yml:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+      - promtail-data:/tmp
+    depends_on:
+      - loki
+    networks:
+      - observability
+
+  grafana:
+    image: grafana/grafana:10.4.3
+    container_name: base-grafana
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: admin
+      GF_AUTH_ANONYMOUS_ENABLED: "false"
+    volumes:
+      - grafana-data:/var/lib/grafana
+    depends_on:
+      - loki
+      - tempo
+    networks:
+      - observability
+
+networks:
+  observability:
+    driver: bridge
+
+volumes:
+  mysql-data:
+  redis-data:
+  promtail-data:
+  grafana-data:
